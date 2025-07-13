@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace RecycleBinTray.Services
 {
-    public class RecycleBinService : IRecycleBinService
+    public partial class RecycleBinService : IRecycleBinService
     {
         public void Empty()
         {
@@ -25,8 +25,6 @@ namespace RecycleBinTray.Services
         public RecycleBinStatus GetStatus()
         {
             // The SHQUERYRBINFO structure is used to retrieve information about the recycle bin.
-            // https://learn.microsoft.com/en-us/windows/win32/api/shellapi/ns-shellapi-shqueryrbinfo
-            // https://www.pinvoke.net/default.aspx/shell32/SHQueryRecycleBin.html
             SHQUERYRBINFO info = new SHQUERYRBINFO();
 
             // Set the size of the SHQUERYRBINFO structure.
@@ -45,27 +43,23 @@ namespace RecycleBinTray.Services
             };
         }
 
-        // https://learn.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shemptyrecyclebina
+        /// <summary>
+        /// Empties the Recycle Bin, permanently deleting all items within it.
+        /// </summary>
+        /// <param name="hwnd"> Handle to the parent window for any dialog boxes that might be displayed.</param>
+        /// <param name="pszRootPath"> The path of the root directory for which to empty the recycle bin. If this parameter is NULL, the function empties the recycle bin for all drives.</param>
+        /// <param name="dwFlags"> Flags that specify options for emptying the recycle bin. These can include options like not showing confirmation dialogs, not showing progress UI, and not playing sounds.</param>
+        /// <returns> Returns zero if the function succeeds, or a nonzero value if it fails. The specific error code can be retrieved using Marshal.GetLastWin32Error().</returns>
+        [LibraryImport("shell32.dll", EntryPoint = "SHEmptyRecycleBinW", StringMarshalling = StringMarshalling.Utf16)]
+        private static partial int SHEmptyRecycleBin(nint hwnd, string? pszRootPath, RecycleFlags dwFlags);
 
         /// <summary>
-        /// The SHEmptyRecycleBin function empties the recycle bin for a specified root path.
+        /// Retrieves information about the recycle bin, such as its size and item count.
         /// </summary>
-        /// <param name="hwnd"></param>
-        /// <param name="pszRootPath"></param>
-        /// <param name="dwFlags"></param>
-        /// <returns></returns>
-        [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
-        private static extern int SHEmptyRecycleBin(IntPtr hwnd, string? pszRootPath, RecycleFlags dwFlags);
-
-        // https://learn.microsoft.com/en-us/windows/win32/api/shellapi/nf-shellapi-shqueryrecyclebinw
-
-        /// <summary>
-        /// The SHQueryRecycleBin function retrieves information about the recycle bin for a specified root path.
-        /// </summary>
-        /// <param name="pszRootPath"></param>
-        /// <param name="pSHQueryRBInfo"></param>
-        /// <returns></returns>
-        [DllImport("Shell32.dll", CharSet = CharSet.Unicode)]
-        static extern int SHQueryRecycleBin(string? pszRootPath, ref SHQUERYRBINFO pSHQueryRBInfo);
+        /// <param name="pszRootPath"> The path of the root directory for which to query the recycle bin. If this parameter is NULL, the function retrieves information for all drives.</param>
+        /// <param name="pSHQueryRBInfo"> A reference to a SHQUERYRBINFO structure that receives the information about the recycle bin. This structure must be initialized with its cbSize member set to the size of the structure before calling this function.</param>
+        /// <returns> Returns zero if the function succeeds, or a nonzero value if it fails. The specific error code can be retrieved using Marshal.GetLastWin32Error().</returns>
+        [LibraryImport("shell32.dll", EntryPoint = "SHQueryRecycleBinW", StringMarshalling = StringMarshalling.Utf16)]
+        private static partial int SHQueryRecycleBin(string? pszRootPath, ref SHQUERYRBINFO pSHQueryRBInfo);
     }
 }

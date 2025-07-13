@@ -49,13 +49,17 @@ namespace RecycleBinTray.Helpers
 
             owner.Load += (s, e) =>
             {
-                owner.Hide(); // Hide right after load, so it doesn't flash
+                // Hide right after load, so it doesn't flash
+                owner.Hide();
+
+                // Show the context menu at the current cursor position
                 trayIcon.ContextMenuStrip.Closing += (s2, e2) =>
                 {
                     trayIcon.ContextMenuStrip.Closing -= null!;
                     owner.Close();
                     owner.Dispose();
                 };
+
                 trayIcon.ContextMenuStrip.Show(owner, owner.PointToClient(Cursor.Position));
             };
 

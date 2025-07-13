@@ -2,6 +2,9 @@
 
 namespace RecycleBinTray.Helpers
 {
+    // https://learn.microsoft.com/en-us/windows/win32/api/shellapi/ns-shellapi-shqueryrbinfo
+    // https://www.pinvoke.net/default.aspx/shell32/SHQueryRecycleBin.html
+
     /// <summary>
     /// Structure used to retrieve information about the recycle bin.
     /// </summary>
