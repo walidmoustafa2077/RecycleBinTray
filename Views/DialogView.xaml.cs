@@ -18,13 +18,16 @@ namespace RecycleBinTray.Views
         public Action OnSubmit { get; set; } = () => { };
         public Action OnCancel { get; set; } = () => { };
 
-        public DialogView(string title, string message)
+        public DialogView(string title, string message, string? submitText = null, string? cancelText = null)
         {
             InitializeComponent();
 
             Title = title;
             DialogTitle.Text = title;
             Message.Text = message;
+
+            SubmitButton.Content = submitText ?? "OK";
+            CancelButton.Content = cancelText ?? "Cancel";
         }
 
         private void OnCancelClick(object sender, RoutedEventArgs e)

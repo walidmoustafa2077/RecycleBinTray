@@ -43,6 +43,8 @@ namespace RecycleBinTray.Core
         {
             if (e.Button == MouseButtons.Left)
                 ContextMenu.ShowContextMenuWithoutTaskbar(_trayIcon);
+            else if (e.Button == MouseButtons.Middle)
+                _recycleBinService.Empty();
         }
 
         private void UpdateIcon()

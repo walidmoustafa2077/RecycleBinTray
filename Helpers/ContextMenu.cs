@@ -8,17 +8,17 @@ namespace RecycleBinTray.Helpers
         public static ContextMenuStrip BuildContextMenu(IRecycleBinService recycleBinService)
         {
             var menu = new ContextMenuStrip();
-
-            menu.Items.Add("Open Recycle Bin", null, (_, _) => recycleBinService.Open());
-            menu.Items.Add("Empty Recycle Bin", null, (_, _) => recycleBinService.Empty());
             menu.Items.Add("Settings", null, (_, _) =>
             {
-                var settingsWindow = new DialogView("Settings coming soon", "Not Implemented")
+                var settingsWindow = new DialogView("Settings coming soon", "Not Implemented", submitText: "Okey")
                 {
-                    IsCancelable = true
+                    IsCancelable = false
                 };
                 settingsWindow.ShowDialog();
             });
+
+            menu.Items.Add("Open Recycle Bin", null, (_, _) => recycleBinService.Open());
+            menu.Items.Add("Empty Recycle Bin", null, (_, _) => recycleBinService.Empty());
 
             menu.Items.Add("About", null, (_, _) =>
             {

@@ -51,7 +51,8 @@
                         HorizontalAlignment="Center"
                         Click="OnCancelClick"
                         FontWeight="Bold"
-                        Style="{StaticResource  RoundedButtonStyle}" />
+                        Style="{StaticResource  RoundedButtonStyle}"
+                        Visibility="{Binding IsCancelable, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
 
                 <Button x:Name="SubmitButton"
                         Content="OK"
@@ -63,8 +64,7 @@
                         FontWeight="Bold"
                         BorderBrush="#8a8888"
                         Background="#bfbdbd"
-                        Style="{StaticResource  RoundedButtonStyle}"
-                        Visibility="{Binding IsCancelable, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
+                        Style="{StaticResource  RoundedButtonStyle}" />
 
             </StackPanel>
         </StackPanel>
