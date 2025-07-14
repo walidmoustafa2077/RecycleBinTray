@@ -11,7 +11,8 @@
         Background="Transparent"
         ShowInTaskbar="False"
         FontFamily="Segoe UI"
-        FontSize="13">
+        FontSize="13"
+        MinWidth="300">
 
     <Window.Resources>
         <converters:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
@@ -22,8 +23,7 @@
             BorderThickness="2"
             Padding="20"
             CornerRadius="24">
-        <StackPanel HorizontalAlignment="Center"
-                    Width="300">
+        <StackPanel HorizontalAlignment="Center">
             <TextBlock x:Name="DialogTitle"
                        Text="RecycleBinTrayApp"
                        FontSize="18"
@@ -32,12 +32,22 @@
                        TextAlignment="Center"
                        Margin="0,0,0,5" />
 
+            <TextBlock x:Name="DialogSubTitle"
+                       Text="RecycleBinTrayApp"
+                       FontSize="16"
+                       FontWeight="Bold"
+                       Foreground="#333"
+                       TextAlignment="Center"
+                       Margin="0,6,0,5"
+                       Visibility="{Binding ShowSupTitle, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
+
             <TextBlock x:Name="Message"
                        Text="Version 1.0"
                        FontSize="14"
                        Foreground="#666"
                        TextAlignment="Center"
-                       Margin="0,6,0,2" />
+                       Margin="0,6,0,2"
+                       Visibility="{Binding ShowMessage, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVisibility}}" />
 
             <Separator Margin="0,10" />
 
