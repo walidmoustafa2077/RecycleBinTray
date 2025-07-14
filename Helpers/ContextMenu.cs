@@ -23,7 +23,7 @@ namespace RecycleBinTray.Helpers
                 aboutWindow.ShowDialog();
             });
 
-            menu.Items.Add("Close Appliaction", null, (_, _) => Environment.Exit(0));
+            menu.Items.Add("Close Application", null, (_, _) => Environment.Exit(0));
 
             return menu;
         }

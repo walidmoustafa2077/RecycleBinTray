@@ -24,8 +24,9 @@ namespace RecycleBinTray.Services
 
             confirmation.ShowDialog();
 
+            // Wait for user input
             while (confirmation.DialogResult == null)
-                Task.Delay(100).Wait(); // Wait for user input
+                Task.Delay(100).Wait(); 
 
             if (confirmation.DialogResult == true)
             {
