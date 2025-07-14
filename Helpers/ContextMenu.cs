@@ -10,10 +10,7 @@ namespace RecycleBinTray.Helpers
             var menu = new ContextMenuStrip();
             menu.Items.Add("Settings", null, (_, _) =>
             {
-                var settingsWindow = new DialogView("Settings coming soon", "Not Implemented", submitText: "Okey")
-                {
-                    IsCancelable = false
-                };
+                var settingsWindow = new DialogView(title: "Settings coming soon", message: "Not Implemented", submitText: "Okey");
                 settingsWindow.ShowDialog();
             });
 
@@ -26,7 +23,7 @@ namespace RecycleBinTray.Helpers
                 aboutWindow.ShowDialog();
             });
 
-            menu.Items.Add("Close", null, (_, _) => Environment.Exit(0));
+            menu.Items.Add("Close Appliaction", null, (_, _) => Environment.Exit(0));
 
             return menu;
         }

@@ -1,5 +1,6 @@
 ﻿using RecycleBinTray.Helpers;
 using RecycleBinTray.Models;
+using RecycleBinTray.Views;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -9,11 +10,31 @@ namespace RecycleBinTray.Services
     {
         public void Empty()
         {
-            // The RecycleFlags enum is used to specify options for the SHEmptyRecycleBin function.
-            SHEmptyRecycleBin(IntPtr.Zero, null,
-                RecycleFlags.SHERB_NOCONFIRMATION |
-                RecycleFlags.SHERB_NOPROGRESSUI |
-                RecycleFlags.SHERB_NOSOUND);
+            // Prompt the user to confirm before emptying the Recycle Bin.
+            var confirmation = new DialogView(
+                title: "Are you sure you want to empty the Recycle Bin?",
+                supTitle: "Confirm Emptying Recycle Bin.",
+                message: " This action cannot be undone.",
+                submitText: "Yes",
+                cancelText: "No"
+            );
+
+            // Red color for supTitle
+            confirmation.ChangeTextColor(DialogText.Subtitle, "#8a0101"); 
+
+            confirmation.ShowDialog();
+
+            while (confirmation.DialogResult == null)
+                Task.Delay(100).Wait(); // Wait for user input
+
+            if (confirmation.DialogResult == true)
+            {
+                // The RecycleFlags enum is used to specify options for the SHEmptyRecycleBin function.
+                SHEmptyRecycleBin(IntPtr.Zero, null,
+                    RecycleFlags.SHERB_NOCONFIRMATION |
+                    RecycleFlags.SHERB_NOPROGRESSUI |
+                    RecycleFlags.SHERB_NOSOUND);
+            }
         }
 
         public void Open()
