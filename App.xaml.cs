@@ -1,4 +1,5 @@
-﻿using RecycleBinTray.Core;
+﻿using Microsoft.Win32;
+using RecycleBinTray.Core;
 using RecycleBinTray.Helpers;
 using RecycleBinTray.Services;
 using System.IO;
@@ -18,6 +19,13 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
+
+        // check if app already running
+        Manager.AlreadyRunning();
+
+        // Add App to Windows Startup
+        Manager.AddToStartup();
+
         ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
         base.OnStartup(e);
@@ -34,5 +42,7 @@ public partial class App : Application
         _trayIconManager?.Dispose();
         base.OnExit(e);
     }
+
+
 }
 

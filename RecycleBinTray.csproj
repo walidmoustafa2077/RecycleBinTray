@@ -8,6 +8,8 @@
 		<UseWPF>true</UseWPF>
 		<UseWindowsForms>true</UseWindowsForms>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<ApplicationIcon>RecycleBin\Light\full.ico</ApplicationIcon>
+		<AssemblyName>Recycle Bin Tray</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>
