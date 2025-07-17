@@ -24,8 +24,10 @@ namespace RecycleBinTray.Core
         /// </summary>
         public static void AddToStartup()
         {
-            // Registry key name
-            string appPath = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            string? appPath = System.Diagnostics.Process.GetCurrentProcess().MainModule?.FileName;
+
+            if (string.IsNullOrWhiteSpace(appPath))
+                return; 
 
             using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run", true))
             {

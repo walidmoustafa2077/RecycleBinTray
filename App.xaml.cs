@@ -1,5 +1,4 @@
-﻿using Microsoft.Win32;
-using RecycleBinTray.Core;
+﻿using RecycleBinTray.Core;
 using RecycleBinTray.Helpers;
 using RecycleBinTray.Services;
 using System.IO;
@@ -19,7 +18,6 @@ public partial class App : Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-
         // check if app already running
         Manager.AlreadyRunning();
 
